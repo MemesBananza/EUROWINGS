@@ -28,8 +28,8 @@
   }
 </style>
 <script>
-  const apiKey = '748520ed3feeba08f740c94f41eb466f';  // Replace with your Trello API key
-  const token = 'ATTA289f46a116fef5ce47b3443210d7d30aa9a4556befc8f8a7e00e41390af0b8e6F5CBAE17'; // Replace with your Trello API token
+  const apiKey = 'process.env.TRELLO_KEY';  // Replace with your Trello API key
+  const token = 'process.env.TRELLO_TOKEN'; // Replace with your Trello API token
   const boardId = 'B2hOvLxK'; // Replace with your Trello Board ID
 
   // Function to fetch events (cards) from Trello
