@@ -28,11 +28,57 @@
   }
 </style>
 <script>
+  const apiKey = '748520ed3feeba08f740c94f41eb466f';  // Replace with your Trello API key
+  const token = 'ATTA289f46a116fef5ce47b3443210d7d30aa9a4556befc8f8a7e00e41390af0b8e6F5CBAE17'; // Replace with your Trello API token
+  const boardId = 'B2hOvLxK'; // Replace with your Trello Board ID
+
+  // Function to fetch events (cards) from Trello
+  async function fetchTrelloEvents() {
+      const url = `https://api.trello.com/1/boards/${boardId}/cards?key=${apiKey}&token=${token}`;
+
+      try {
+          const response = await fetch(url);
+          const cards = await response.json();
+          displayEvents(cards);
+      } catch (error) {
+          console.error('Error fetching Trello data:', error);
+      }
+  }
+
+  // Function to display events on the page
+  function displayEvents(cards) {
+      const eventsRow = document.getElementById('events-row');
+      eventsRow.innerHTML = '';
+
+      cards.forEach(card => {
+          const eventCol = document.createElement('div');
+          eventCol.className = 'col-md-4';
+
+          // Check if the card has an attachment that is marked as the cover image
+          const coverImage = card.cover.sharedSourceUrl || card.cover.url;
+
+          eventCol.innerHTML = `
+              <div class="card mb-4">
+                  <img src="/img/EWPLANEUNDER.png" class="card-img-top" alt="${card.name}">
+                  <div class="card-body">
+                      <h5 class="card-title">${card.name}</h5>
+                      <p class="card-text">${card.desc}</p>
+                      <a href="${card.shortUrl}" class="btn btn-primary" target="_blank">View on Trello</a>
+                  </div>
+              </div>
+          `;
+
+          eventsRow.appendChild(eventCol);
+      });
+  }
+
+  // Fetch events on page load
+  fetchTrelloEvents();
 </script>
 <!-- https://logosandtypes.com/wp-content/uploads/2020/11/eurowings.svg -->
 <body>
   <!-- Header -->
-    <div class="container.fluid text-center align-content-center" style="background-image: url(https://memesbananza.github.io/Eurowings_Roblox_Webpage/img/SKY.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 80vh; background-position: top">
+    <div class="container.fluid text-center align-content-center" style="background-image: url(/img/SKY.jpg); background-repeat: no-repeat; background-size: cover; width: 100%; height: 80vh; background-position: top">
       <div class="container align-content-center">
         <span class="p-5">
           <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Eurowings_Logo.svg" class="" style="display: inline;" height="100vh" alt=""></div>
@@ -61,31 +107,10 @@
     </nav>
     <!-- TESTING -->
     <div class="container my-4">
-      <h1 class="text-center">Trello Events</h1>
+      <h1 class="text-center">Flights</h1>
       <div id="events-row" class="row"></div>
     </div>
-    <script src="https://memesbananza.github.io/Eurowings_Roblox_Webpage/js/trello.js"></script>
-    <!-- END -->
-    <h3 class="display-5 text-left mt-5 pt-2 p-5 pb-2"></h3>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-sm-4">
-          <h3 style="font-family: EDU AU VIC WA NT Hand;">Our Origins</h3>
-          <p>Since 2019 we have been providing quality products with our excellent developement team.</p>
-        </div>
-        <div class="col-sm-4">
-          <h3 style="font-family: EDU AU VIC WA NT Hand;">Who?</h3>
-          <p>Since 2019, our owner, XYZ, has been managing the ins and outs of Whitehill.</p>
-        </div>
-        <div class="col-sm-4">
-          <h3 style="font-family: EDU AU VIC WA NT Hand;">Why?</h3>        
-          <p>Because we want to make realistic and fun experiences for creator and player alike.</p>
-        </div>
-      </div>
-    </div>
-    <div class="container.fluid p-5 text-center">
-      <a href="products.html" class="btn btn-lg btn-success bttn-CTA-CATALOUGE" style="font: poppins;">View Catalouge</a>
-    </div>  
+    <!-- END --> 
             <div class="container.fluid p-5 mt-0 pt-0 text-center">
               <div class="p-5 pb-2">
                 <h1 class="p-2" style="font-family: EDU AU VIC WA NT Hand;">Our Products are good. Don't take our word for it.</h1>
